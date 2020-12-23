@@ -1,10 +1,21 @@
+timeout: 1200s
 steps:
-  - name: 'gcr.io/cloud-foundation-cicd/cft/developer-tools:$_DOCKER_TAG_VERSION_DEVELOPER_TOOLS'
-    id: 'lint'
-    args: ['/usr/local/bin/test_lint.sh']
-tags:
-  - 'ci'
-  - 'lint'
-substitutions:
-  _DOCKER_IMAGE_DEVELOPER_TOOLS: 'cft/developer-tools'
-  _DOCKER_TAG_VERSION_DEVELOPER_TOOLS: '0.12.2'
+  # terraform init -input=false
+  - name: gcr.io/$PROJECT_ID/terraform
+    args:
+      - init
+      - -input=false
+  # terraform validate
+  - name: gcr.io/$PROJECT_ID/terraform
+    args:
+      - validate
+  # terraform plan -input=false -out=tfplan
+  - name: gcr.io/$PROJECT_ID/terraform
+    args:
+      - plan
+      - -input=false
+      - -out=tfplan
+artifacts:
+  objects:
+    location: 'gs://${_ARTIFACT_BUCKET_NAME}/terraform/cloudbuild/plan/$BUILD_ID'
+    paths: ['lint.cloudbuild.yaml', 'tfplan']
