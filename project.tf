@@ -17,7 +17,15 @@ resource "google_project" "project" {
 
 resource "google_project_service" "service" {
   for_each = toset([
-    "compute.googleapis.com"
+    "compute.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "storage-api.googleapis.com",
+    "serviceusage.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "storage-component.googleapis.com",
+    "sourcerepo.googleapis.com"
   ])
 
   service = each.key
