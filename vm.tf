@@ -9,7 +9,7 @@ resource "google_compute_instance" "default" {
     }
   }
   network_interface {
-    network = local.subnet_01
+    subnetwork = local.subnet_01
     access_config {
     }
   }
