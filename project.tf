@@ -25,7 +25,8 @@ resource "google_project_service" "service" {
     "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
     "storage-component.googleapis.com",
-    "sourcerepo.googleapis.com"
+    "sourcerepo.googleapis.com",
+    "iam.googleapis.com"
   ])
 
   service = each.key
