@@ -31,7 +31,4 @@ resource "google_cloudfunctions_function" "test" {
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.archive.name
 
-  labels {
-    deployment_name = "test"
-  }
 }
