@@ -1,21 +1,17 @@
 timeout: 1200s
 steps:
   # terraform init -input=false
-  - name: gcr.io/$PROJECT_ID/terraform
+  - name: "hashicorp/terraform:0.12.29"
     args:
       - init
       - -input=false
   # terraform validate
-  - name: gcr.io/$PROJECT_ID/terraform
+  - name: "hashicorp/terraform:0.12.29"
     args:
       - validate
   # terraform plan -input=false -out=tfplan
-  - name: gcr.io/$PROJECT_ID/terraform
+  - name: "hashicorp/terraform:0.12.29"
     args:
       - plan
       - -input=false
       - -out=tfplan
-artifacts:
-  objects:
-    location: 'gs://${_ARTIFACT_BUCKET_NAME}/terraform/cloudbuild/plan/$BUILD_ID'
-    paths: ['lint.cloudbuild.yaml', 'tfplan']
