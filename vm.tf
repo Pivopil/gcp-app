@@ -1,7 +1,7 @@
 data "google_compute_zones" "available" {}
 
 resource "google_compute_instance" "default" {
-  project      = local.project_name
+  project      = google_project.project.project_id
   zone         = data.google_compute_zones.available.names[0]
   name         = "tf-compute-1"
   machine_type = "f1-micro"
@@ -11,7 +11,7 @@ resource "google_compute_instance" "default" {
     }
   }
   network_interface {
-    subnetwork = "simple-gcp-subnet-01"
+    subnetwork = module.vpc.subnets_names[0]
     access_config {
     }
   }
