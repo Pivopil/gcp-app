@@ -18,6 +18,7 @@ resource "google_storage_bucket_object" "archive" {
   depends_on = [data.archive_file.http_trigger]
 }
 
+//https://cloud.google.com/functions/docs/locations
 resource "google_cloudfunctions_function" "test" {
   name        = "webhookFunction"
   runtime     = "nodejs10"
@@ -30,5 +31,13 @@ resource "google_cloudfunctions_function" "test" {
   trigger_http          = true
   source_archive_bucket = google_storage_bucket.bucket.name
   source_archive_object = google_storage_bucket_object.archive.name
+}
 
+resource "google_cloudfunctions_function_iam_member" "invoker" {
+  project        = google_cloudfunctions_function.test.project
+  region         = google_cloudfunctions_function.test.region
+  cloud_function = google_cloudfunctions_function.test.name
+
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
 }
