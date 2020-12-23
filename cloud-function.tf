@@ -23,6 +23,7 @@ resource "google_cloudfunctions_function" "test" {
   runtime     = "nodejs10"
   entry_point = "webhook"
   project     = local.project_name
+  region      = "us-east1"
 
   available_memory_mb   = 128
   timeout               = 60
