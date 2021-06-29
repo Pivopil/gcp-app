@@ -2,11 +2,11 @@
 timeout: 1200s
 steps:
   # terraform init -input=false
-  - name: "hashicorp/terraform:0.12.29"
+  - name: "hashicorp/terraform:0.15.5"
     args:
       - init
       - -input=false
   # terraform validate
-  - name: "hashicorp/terraform:0.12.29"
+  - name: "hashicorp/terraform:0.15.5"
     args:
       - validate
